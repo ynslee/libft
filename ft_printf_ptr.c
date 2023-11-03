@@ -1,38 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_printf_ptr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoonslee <yoonslee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 14:12:40 by yoonslee          #+#    #+#             */
+/*   Created: 2022/12/12 14:33:42 by yoonslee          #+#    #+#             */
 /*   Updated: 2023/05/04 13:08:25 by yoonslee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+static int	ptr_hexa(unsigned long long n)
 {
-	if (n == -2147483648)
+	int	temp;
+	int	count;
+
+	count = 1;
+	temp = 0;
+	if (n / 16 > 0)
 	{
-		ft_putchar_fd('-', fd);
-		ft_putchar_fd('2', fd);
-		ft_putnbr_fd(147483648, fd);
-		return ;
+		count += ptr_hexa(n / 16);
 	}
-	if (n < 0)
+	n = n % 16;
+	if (n >= 0 && n <= 15)
 	{
-		ft_putchar_fd('-', fd);
-		n = -n;
+		if (n > 9 && n <= 15)
+			temp = n - 10 + 'a';
+		else
+			temp = n + '0';
 	}
-	if (n >= 10)
-	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putnbr_fd(n % 10, fd);
-	}
-	if (n < 10 && n >= 0)
-	{
-		ft_putchar_fd(n + '0', fd);
-	}
+	ft_printchr(temp);
+	return (count);
+}
+
+int	ft_printptr(unsigned long long n)
+{
+	int	len;
+
+	len = 2;
+	ft_printchr('0');
+	ft_printchr('x');
+	len += ptr_hexa(n);
+	return (len);
 }

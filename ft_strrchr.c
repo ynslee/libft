@@ -6,12 +6,13 @@
 /*   By: yoonslee <yoonslee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:14:20 by yoonslee          #+#    #+#             */
-/*   Updated: 2022/11/15 14:26:12 by yoonslee         ###   ########.fr       */
+/*   Updated: 2023/05/04 13:08:25 by yoonslee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*return the address of first c occured in s*/
 char	*ft_strrchr(const char *s, int c)
 {
 	char	*ptr;

@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   free_char_array.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoonslee <yoonslee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 14:12:40 by yoonslee          #+#    #+#             */
-/*   Updated: 2023/05/04 13:08:25 by yoonslee         ###   ########.fr       */
+/*   Created: 2023/08/21 17:35:25 by yoonslee          #+#    #+#             */
+/*   Updated: 2023/11/03 10:36:04 by yoonslee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+/**
+ * @brief frees the double str
+ */
+void	free_char_array(char **str)
 {
-	if (n == -2147483648)
-	{
-		ft_putchar_fd('-', fd);
-		ft_putchar_fd('2', fd);
-		ft_putnbr_fd(147483648, fd);
+	int		i;
+
+	i = 0;
+	if (!str)
 		return ;
-	}
-	if (n < 0)
+	while (str[i])
 	{
-		ft_putchar_fd('-', fd);
-		n = -n;
+		if (str[i])
+		{
+			free(str[i]);
+			str[i] = NULL;
+		}
+		i++;
 	}
-	if (n >= 10)
+	if (str)
 	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putnbr_fd(n % 10, fd);
-	}
-	if (n < 10 && n >= 0)
-	{
-		ft_putchar_fd(n + '0', fd);
+		free(str);
+		str = NULL;
 	}
 }

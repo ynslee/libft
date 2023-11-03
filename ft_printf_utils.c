@@ -1,38 +1,62 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoonslee <yoonslee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 14:12:40 by yoonslee          #+#    #+#             */
+/*   Created: 2022/12/05 17:48:45 by yoonslee          #+#    #+#             */
 /*   Updated: 2023/05/04 13:08:25 by yoonslee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_printstr(char *str)
 {
-	if (n == -2147483648)
+	int	i;
+
+	i = 0;
+	if (str == NULL)
 	{
-		ft_putchar_fd('-', fd);
-		ft_putchar_fd('2', fd);
-		ft_putnbr_fd(147483648, fd);
-		return ;
+		write(1, "(null)", 6);
+		return (6);
 	}
-	if (n < 0)
+	i = 0;
+	while (str[i] != '\0')
 	{
-		ft_putchar_fd('-', fd);
-		n = -n;
+		write(1, &str[i], 1);
+		i++;
 	}
-	if (n >= 10)
+	return (i);
+}
+
+int	ft_printnbr(int n)
+{
+	int		i;
+	char	*nbr;
+
+	i = 0;
+	nbr = ft_itoa(n);
+	i = ft_printstr(nbr);
+	free(nbr);
+	nbr = NULL;
+	return (i);
+}
+
+int	ft_printnbr_unsigned(unsigned int n)
+{
+	int	len;
+
+	len = 1;
+	if (n / 10 > 0)
 	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putnbr_fd(n % 10, fd);
+		len += ft_printnbr_unsigned(n / 10);
 	}
+	n = n % 10;
 	if (n < 10 && n >= 0)
 	{
-		ft_putchar_fd(n + '0', fd);
+		ft_printchr(n + '0');
 	}
+	return (len);
 }

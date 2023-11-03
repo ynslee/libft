@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   print_char_array.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yoonslee <yoonslee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 14:12:40 by yoonslee          #+#    #+#             */
-/*   Updated: 2023/05/04 13:08:25 by yoonslee         ###   ########.fr       */
+/*   Created: 2023/09/13 11:23:29 by yoonslee          #+#    #+#             */
+/*   Updated: 2023/09/13 11:25:57 by yoonslee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void	print_char_array(char **str)
 {
-	if (n == -2147483648)
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		ft_putchar_fd('-', fd);
-		ft_putchar_fd('2', fd);
-		ft_putnbr_fd(147483648, fd);
-		return ;
-	}
-	if (n < 0)
-	{
-		ft_putchar_fd('-', fd);
-		n = -n;
-	}
-	if (n >= 10)
-	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putnbr_fd(n % 10, fd);
-	}
-	if (n < 10 && n >= 0)
-	{
-		ft_putchar_fd(n + '0', fd);
+		ft_printf("str[%d] is :%s\n", i, str[i]);
+		i++;
 	}
 }
